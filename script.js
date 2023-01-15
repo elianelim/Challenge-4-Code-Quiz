@@ -8,26 +8,25 @@ var highScore = [];
 //quiz questions
 var quiz = [
     {
-        question: "What do we use to store groups of data in a single variable?"
-        choices: ["Arrays", "variables", "function", "div"],
+        question: "What do we use to store groups of data in a single variable?",
+        choices: ["arrays", "variables", "function", "div"],
+        answer: 0,
+    },
+    {
+        question: "What is a string?",
+        choices: ["'Hello'", "true", "10.888", "865Password"],
         answer: 0,
     },
 
     {
-        question: "What is a string?"
-        choices: [""Hello World"", "true", "10.888", "865Password"],
-        answer: 0,
-    },
-
-    {
-        question: "What can function take?"
+        question: "What can function take?",
         choices: ["arguement", "variables", "parameters", "value"],
         answer: 2,
     },
 
     {
-        question: "What is a boolean?"
-        choices: [""Hello World"", "true", "10.888", "865Password"],
+        question: "What is a boolean?",
+        choices: ["0.9", "true", "10.888", "865Password"],
         answer: 1,
     }
 ];
@@ -54,7 +53,7 @@ function submitScore() {
         name = initialsLabel.value;
         initialsLabel.value = ""; //reset the value from the name for the next quiz, clearing the input box
     }
-
+    //high score will be push onto the scoreboard
     highScore.push({ name: name, score: userScores });
 
     //sorting by descending order to have only top 3 highscore
@@ -73,20 +72,20 @@ function submitScore() {
 
     });
 
-    //only keeping top 3 highscores. using slice method to keep top 3 highscores
+    //only keeping top 3 highscores. using slice method to eliminate our scores
     if (highScore.length > 3) {
         highScore = highScore.slice(0, 3);
     }
 
-    //after slicing, score label will be shown so game can restart???
+    //after slicing, score label will be displayed
     var showScoreLabel = document.getElementById("showScoreLabel");
     showScoreLabel.classList.add("hideItem");
 
-    //removing questions after button to start quiz is clicked
+    //retriving the game main screen to start new game
     var startScreenPanelElement = document.getElementById("startQuizPanel");
     startScreenPanelElement.classList.remove("hideItem");
 
-    console.log(highscore);
+    console.log(highScore);
 }
 
 //reset game data after quiz end
@@ -95,12 +94,13 @@ function startQuiz() {
     userScores = 0;
     quizNumber = 0;
     hasAnswered = false;
-}
 
 //clear countDown timer when quiz ends
 countDownInterval = setInterval(() => {
     if (counter <= 0) {
         counter = 0;
+
+        //if user did not answer all the question, then the quiz will end
         clearInterval(countDownInterval);
 
         //to hide the questions
@@ -116,21 +116,21 @@ countDownInterval = setInterval(() => {
         }
 
         updateTime();
-        return;
-    }
-    counter -= 1;
-    updateTime();
-}, 1000);
+        return; //if quiz ends before the time ends, the code below will not run
+        }
+        counter -= 1;
+        updateTime();
+    }, 1000); 
 
-var startScreenPanelElement = document.getElementById("startQuizPanel");
-questionPanel.classList.remove("hideItem");
+    var startScreenPanelElement = document.getElementById("startQuizPanel");
+    startScreenPanelElement.classList.add("hideItem");
 
-//To show question
-var startScreenPanelElement = document.getElementById("questionPanel");
-questionPanel.classList.remove("hideItem");
-updateQuestion();
-console.log(choices);
-
+    //To show question
+    var questionPanel = document.getElementById("questionPanel");
+    questionPanel.classList.remove("hideItem");
+    updateQuestion();
+    console.log(choices);
+}
 function updateQuestion() {
     var question = document.getElementById("questionLabel");
     question.innerText = quiz[quizNumber].question;
@@ -143,7 +143,7 @@ function updateQuestion() {
 function answerQn(choices) {
     if (hasAnswered) {
         console.log("You have answered this question!");
-        return;
+        return; 
     }
 
     console.log("Your choice is " + choices);
@@ -156,7 +156,7 @@ function answerQn(choices) {
 
     //if question is answered correctly
     if (currentQn.answer == choices) {
-        goNextBtn.innerText = "Go Next";
+        goNextBtn.innerText = "Next Question";
         answerResultWrapper.classList.add("correctLabel");
         resultLabel.innerText = "CORRECT";
         userScores += 25;
@@ -168,11 +168,12 @@ function answerQn(choices) {
         updateTime();
         if (counter <= 0) {
             goNextBtn.innerText = "Show Result";
-            clearInterval(countDownInterval);
+        } else {
+            goNextBtn.innerText = "Next Question"
+        }
+        resultLabel.innerText = "WRONG";
         }
     }
-
-}
 
 function goNextQuestion() {
     if (counter <= 0) {
@@ -185,13 +186,14 @@ function goNextQuestion() {
     console.log("answered quizNumber: ", quizNumber);
     quizNumber += 1;
     console.log("Going to the next question");
-    console.log("Number of Quiz: ", quiz.length);
+    console.log("next quizNumber: ", quizNumber);
+    console.log("Number of quiz: ", quiz.length);
     if (quizNumber < quiz.length) {
         console.log("update question to the next question");
         answerResultWrapper.classList.add("hideItem");
         answerResultWrapper.classList.remove("correctLabel");
         answerResultWrapper.classList.remove("wrongLabel");
-        hasAnswered = false;
+        hasAnswered = false; //reset to detect if next question is answered
         updateQuestion();
     }   else {
         console.log("No more next question");
@@ -214,26 +216,25 @@ function showResultScreen() {
     var showScoreLabel = document.getElementById("showScoreLabel");
     showScoreLabel.classList.remove("hideItem");
 
-    var scoreLabel = document.getElementById("scoreLabel");
-    showScoreLabel.classList.remove("hideItem");
-
     var scoreLabel = document.getElementById("showScoreLabel");
-    showScoreLabel.innerText = "Your Score: " + userScores;
+    scoreLabel.innerText = "Your Score: " + userScores;
 }
 
 function showHighScore() {
     var highScorePanel = document.getElementById("highScoreLabel");
     highScorePanel.classList.remove("hideItem");
+
     var scoreListLabel = document.getElementById("scoreListLabel");
     scoreListLabel.innerHTML = ""; 
 
-    if (highscore.length > 0) {
+    if (highScore.length > 0) {
         var rank = 1;
-        for (var scoreData of highscore) {
+        for (var scoreData of highScore) {
             scoreListLabel.innerHTML += `<div>${rank}. ${scoreData.name} - ${scoreData.score}</div>`;
-            rank = 1;
+            rank += 1;
         }
     }   else {
+        //If there is not high score, will display
         scoreListLabel.innerText = "No Score Yet";
     }
 } 

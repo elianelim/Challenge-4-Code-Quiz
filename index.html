@@ -19,9 +19,10 @@
                     <h1>Coding Quiz Challenge</h1>
                 </header>
                 <div class="qnLabel">Try to answer the following code-related questions within the time limit.<br>Keep in mind that incorrect answers will penalize your score/time by ten seconds.</div>
-                <!--Start quiz and to align the start quiz button to the center of the page-->
+                <!--Start quiz button and to align the button to the center of the page-->
                 <div style="display: flex">
                 <button class="btn alignMiddle" id="start_quiz">Start Quiz</button>
+                <!--<button onclick="startQuiz()">Start Quiz</button>-->
             </div>
         </div>
 
@@ -42,8 +43,14 @@
 
             <!--Result Label-->
             <div class="answerResultLabel fadeIn hideItem" id="answerResultLabel">
+                <div id="resultLabel"></div>
+                <button class="btn" id="goNextBtn" onclick="goNextQuestion()"></button>
+            </div>
+        </div>
+            <!--Scoreboard-->
+            <div class="answerResultLabel scoreLabel fadeIn hideItem" id="showScoreLabel">
                 <div id="scoreLabel"></div>
-                <input type="text" id="yourInitials" placeholder="Name" class="initialsInput"/>
+                <input type="text" id="yourInitials" placeholder="name" class="initialsInput"/>
                 <br>
                 <button class="btn" id="resetBtn" onclick="submitScore()">Submit Score</button>
             </div>
