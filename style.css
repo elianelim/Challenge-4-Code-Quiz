@@ -1,0 +1,170 @@
+html,
+body,
+.wrapper {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: white;
+}
+
+.hudPanel {
+    display: flex;
+    margin: 30px;
+    justify-content: space-between;
+}
+
+.outlineBox {
+    border: 1px solid black;
+    margin: 30px;
+    min-height: 80vh;
+}
+
+.wrapper {
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    padding-top: 0px;
+    color: hsl(206, 17%, 28%);
+}
+
+.btn {
+    border: none;
+    background-color: rgb(82, 0, 169);
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
+      0px;
+    color: hsl(0, 0%, 100%);
+    display: inline-block;
+    font-size: 22px;
+    line-height: 22px;
+    margin: 16px 16px 16px 20px;
+    padding: 14px 34px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.qnLabel {
+    width:100%;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.hideItem{
+    display: none;
+}
+
+.alignMiddle{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+button[disabled] {
+  cursor: default;
+  background: #c0c7cf;
+}
+
+.float-right {
+  float: right;
+}
+
+.choiceWrapper{
+    display: flex;
+}
+
+.choiceWrapper .btn{
+    width: 50vw;
+    height: 70px;
+}
+
+.choiceWrapper .btn:hover{
+    background-color: rgb(123, 123, 255);
+    border: 3px solid yellow;
+}
+
+.answerResultLabel{
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    height:40vh;
+    width:60vw;
+    padding-top:12vh;
+    position: absolute;
+    top:19vh;
+    left:20vw;
+    border-radius: 30px;
+    border: 3px solid black;
+}
+
+.scoreResultLabel{
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    height:40vh;
+    width:60vw;
+    padding-top:8vh;
+    position: absolute;
+    top:19vh;
+    left:20vw;
+    border-radius: 30px;
+    border: 3px solid black;
+}
+
+.correctLabel{
+    background-color: green;
+}
+
+.wrongLabel{
+    background-color: red;
+}
+
+
+.scoreLabel{
+    background-color: rgb(88, 199, 255);
+}
+
+
+.highScoreLabel{
+    background-color: rgb(255, 199, 87);
+}
+
+.initialsInput{
+    background-color: transparent;
+    font-size: 30px;
+    padding:5px;
+}
+
+.fadeIn { animation: fadeInAnimation 1s; }
+
+@keyframes fadeInAnimation {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@media (max-width: 690px) {
+  .btn {
+    font-size: 1rem;
+    margin: 16px 0px 0px 0px;
+    padding: 10px 15px;
+  }
+
+  #password {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn {
+    font-size: 0.8rem;
+  }
+}
+
