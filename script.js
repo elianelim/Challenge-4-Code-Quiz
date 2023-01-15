@@ -1,0 +1,203 @@
+var countDownInterval;
+var counter = 0;
+var quizNumber = 0;
+var hasAnswered = false;
+var userScores = 0;
+var highScore = [];
+
+//quiz questions
+var quiz = [
+    {
+        question: "What is an array?"
+        choices: ["Apple", "Ball", "Car", "Pencil"],
+        answer: 0,
+    },
+
+    {
+        question: "What is an array?"
+        choices: ["Apple", "Ball", "Car", "Pencil"],
+        answer: 0,
+    },
+
+    {
+        question: "What is an array?"
+        choices: ["Apple", "Ball", "Car", "Pencil"],
+        answer: 0,
+    },
+
+    {
+        question: "What is an array?"
+        choices: ["Apple", "Ball", "Car", "Pencil"],
+        answer: 0,
+    }
+];
+
+//reset timer before quiz starts
+updateTime();
+
+//when user clicks on the start quiz button to start the quiz
+var startQuizButton = document.getElementById("start_quiz");
+startQuizButton.addEventListener("click", startQuiz);
+
+
+//function to update timer
+function updateTime() {
+    var timeLabelEl = document.getElementById("timeLabel");
+    timeLabelEl.innertext = `Time: ${counter}`;
+}
+
+//function for after quiz ends
+function submitScore() {
+    var initialsLabel = document.getElementById("yourInitials");
+    var name = "Anonymous";
+    if (initialsLabel.value != "") {
+        name = initialsLabel.value;
+        initialsLabel.value = ""; //reset the value from the name for the next quiz, clearing the input box
+    }
+
+    highScore.push({ name: name, score: userScores });
+
+    //sorting by descending order to have only top 3 highscore
+    highScore.sort((scoreA, scoreB) => {
+
+        //decending logic 
+        if (scoreA.score < scoreB.score) {
+            return 1; //so means scoreB will move to the left and scoreA will move to the right, decending order
+
+        } else if (scoreA.score > scoreB.score) {
+            return -1; //scoreA move to the left, scoreB will move to the right, decending order
+
+        } else {
+            return 0;
+        }
+
+    });
+
+    //only keeping top 3 highscores. using slice method to keep top 3 highscores
+    if (highScore.length > 3) {
+        highScore = highScore.slice(0, 3);
+    }
+
+    //after slicing, score label will be shown so game can restart???
+    var showScoreLabel = document.getElementById("showScoreLabel");
+    showScoreLabel.classList.add("hideItem");
+
+    //removing questions after button to start quiz is clicked
+    var startScreenPanelElement = document.getElementById("startQuizPanel");
+    startScreenPanelElement.classList.remove("hideItem");
+
+    console.log(highscore);
+}
+
+//reset game data after quiz end
+function startQuiz() {
+    counter = quiz.length * 10;
+    userScores = 0;
+    quizNumber = 0;
+    hasAnswered = false;
+}
+
+//clear countDown timer when quiz ends
+countDownInterval = setInterval(() => {
+    if (counter <= 0) {
+        counter = 0;
+        clearInterval(countDownInterval);
+
+        //to hide the questions
+        if (!hasAnswered) {
+            var questionPanel = document.getElementById("questionPanel");
+            questionPanel.classList.add("hideItem");
+            //Display High Score
+            showResultScreen();
+
+        } else {
+            var goNextBtn = document.getElementById("goNextBtn");
+            goNextBtn.innerText = "Show Result";
+        }
+
+        updateTime();
+        return;
+    }
+    counter -= 1;
+    updateTime();
+}, 1000);
+
+var startScreenPanelElement = document.getElementById("startQuizPanel");
+questionPanel.classList.remove("hideItem");
+
+//To show question
+var startScreenPanelElement = document.getElementById("questionPanel");
+questionPanel.classList.remove("hideItem");
+updateQuestion();
+console.log(choices);
+
+function updateQuestion() {
+    var question = document.getElementById("questionLabel");
+    question.innerText = quiz[quizNumber].question;
+    var choicesElementList = document.querySelectorAll("#choice");
+    for (var i = 0; i < quiz[quizNumber].choices.length; ++i) {
+        choicesElementList[i].innerText = quiz[quizNumber].choices[i];
+    }
+}
+
+function answerQn(choices) {
+    if (hasAnswered) {
+        console.log("You have answered this question!");
+        return;
+    }
+
+    console.log("Your choice is " + choices);
+    var currentQn = quiz[quizNumber];
+    hasAnswered = true;
+    var answerResultWrapper = document.getElementById("answerResultLabel");
+    answerResultWrapper.classList.remove("hideItem");
+    var resultLabel = document.getElementById("resultLabel");
+    var goNextBtn = document.getElementById("goNextBtn");
+
+    //if question is answered correctly
+    if (currentQn.answer == choices) {
+        goNextBtn.innerText = "Go Next";
+        answerResultWrapper.classList.add("correctLabel");
+        resultLabel.innerText = "CORRECT";
+        userScores += 25;
+    }   else {
+
+        //when question is answered wrongly
+        answerResultWrapper.classList.add("wrongLabel");
+        counter -= 10;
+        updateTime();
+        if (counter <= 0) {
+            goNextBtn.innerText = "Show Result";
+            clearInterval(countDownInterval);
+        }
+    }
+
+}
+
+function goNextQuestion() {
+    if (counter <= 0) {
+        showResultScreen();
+        return;
+    }
+
+    var answerResultWrapper = document.getElementById("answerResultLabel");
+
+    console.log("answered quizNumber: ", quizNumber);
+    quizNumber += 1;
+    console.log("Going to the next question");
+    console.log("Number of Quiz: ", quiz.length);
+    if (quizNumber < quiz.length) {
+        console.log("update question to the next question");
+        answerResultWrapper.classList.add("hideItem");
+        answerResultWrapper.classList.remove("correctLabel");
+        answerResultWrapper.classList.remove("wrongLabel");
+        hasAnswered = false;
+        updateQuestion();
+    }   else {
+        console.log("No more next question");
+        //end of quiz
+        showResultScreen();
+        //since questions has all been answered, we can stop the timer.
+        clearInterval(countDownInterval);
+    }
+}
