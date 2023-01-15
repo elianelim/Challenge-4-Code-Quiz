@@ -8,27 +8,27 @@ var highScore = [];
 //quiz questions
 var quiz = [
     {
-        question: "What is an array?"
-        choices: ["Apple", "Ball", "Car", "Pencil"],
+        question: "What do we use to store groups of data in a single variable?"
+        choices: ["Arrays", "variables", "function", "div"],
         answer: 0,
     },
 
     {
-        question: "What is an array?"
-        choices: ["Apple", "Ball", "Car", "Pencil"],
+        question: "What is a string?"
+        choices: [""Hello World"", "true", "10.888", "865Password"],
         answer: 0,
     },
 
     {
-        question: "What is an array?"
-        choices: ["Apple", "Ball", "Car", "Pencil"],
-        answer: 0,
+        question: "What can function take?"
+        choices: ["arguement", "variables", "parameters", "value"],
+        answer: 2,
     },
 
     {
-        question: "What is an array?"
-        choices: ["Apple", "Ball", "Car", "Pencil"],
-        answer: 0,
+        question: "What is a boolean?"
+        choices: [""Hello World"", "true", "10.888", "865Password"],
+        answer: 1,
     }
 ];
 
@@ -200,4 +200,45 @@ function goNextQuestion() {
         //since questions has all been answered, we can stop the timer.
         clearInterval(countDownInterval);
     }
+}
+
+function showResultScreen() {
+    var answerResultWrapper = document.getElementById("answerResultLabel");
+    console.log("Show result screen");
+    answerResultWrapper.classList.add("hideItem");
+    answerResultWrapper.classList.remove("correctLabel");
+    answerResultWrapper.classList.remove("wrongLabel");
+    var questionPanel = document.getElementById("questionPanel");
+    questionPanel.classList.add("hideItem");
+
+    var showScoreLabel = document.getElementById("showScoreLabel");
+    showScoreLabel.classList.remove("hideItem");
+
+    var scoreLabel = document.getElementById("scoreLabel");
+    showScoreLabel.classList.remove("hideItem");
+
+    var scoreLabel = document.getElementById("showScoreLabel");
+    showScoreLabel.innerText = "Your Score: " + userScores;
+}
+
+function showHighScore() {
+    var highScorePanel = document.getElementById("highScoreLabel");
+    highScorePanel.classList.remove("hideItem");
+    var scoreListLabel = document.getElementById("scoreListLabel");
+    scoreListLabel.innerHTML = ""; 
+
+    if (highscore.length > 0) {
+        var rank = 1;
+        for (var scoreData of highscore) {
+            scoreListLabel.innerHTML += `<div>${rank}. ${scoreData.name} - ${scoreData.score}</div>`;
+            rank = 1;
+        }
+    }   else {
+        scoreListLabel.innerText = "No Score Yet";
+    }
+} 
+
+function closeHighScore() {
+    var highScorePanel = document.getElementById("highScoreLabel");
+    highScorePanel.classList.add("hideItem");
 }
