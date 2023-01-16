@@ -42,21 +42,21 @@ startQuizButton.addEventListener("click", startQuiz);
 //function to update timer
 function updateTime() {
     var timeLabelEl = document.getElementById("timeLabel");
-    timeLabelEl.innertext = `Time: ${counter}`;
+    timeLabelEl.innerText = `Time: ${counter}`;
 }
 
-//function for after quiz ends
+//function after quiz ends
 function submitScore() {
     var initialsLabel = document.getElementById("yourInitials");
-    var name = "Anonymous";
+    var nickName = "Anonymous";
     if (initialsLabel.value != "") {
-        name = initialsLabel.value;
+        nickName = initialsLabel.value;
         initialsLabel.value = ""; //reset the value from the name for the next quiz, clearing the input box
     }
     //high score will be push onto the scoreboard
-    highScore.push({ name: name, score: userScores });
+    highScore.push({ name: nickName, score: userScores });
 
-    //sorting by descending order to have only top 3 highscore
+    //sorting by descending order to have only top 3 highscore in array highscore
     highScore.sort((scoreA, scoreB) => {
 
         //decending logic 
@@ -72,7 +72,7 @@ function submitScore() {
 
     });
 
-    //only keeping top 3 highscores. using slice method to eliminate our scores
+    //only keeping top 3 highscores. using slice method to eliminate scores
     if (highScore.length > 3) {
         highScore = highScore.slice(0, 3);
     }
@@ -93,7 +93,7 @@ function startQuiz() {
     counter = quiz.length * 10;
     userScores = 0;
     quizNumber = 0;
-    hasAnswered = false;
+    hasAnswered = false; //reset the game data
 
 //clear countDown timer when quiz ends
 countDownInterval = setInterval(() => {
@@ -119,7 +119,8 @@ countDownInterval = setInterval(() => {
         return; //if quiz ends before the time ends, the code below will not run
         }
         counter -= 1;
-        updateTime();
+    
+        updateTime(counter);
     }, 1000); 
 
     var startScreenPanelElement = document.getElementById("startQuizPanel");
@@ -129,7 +130,7 @@ countDownInterval = setInterval(() => {
     var questionPanel = document.getElementById("questionPanel");
     questionPanel.classList.remove("hideItem");
     updateQuestion();
-    console.log(choices);
+     
 }
 function updateQuestion() {
     var question = document.getElementById("questionLabel");
@@ -173,10 +174,18 @@ function answerQn(choices) {
         }
         resultLabel.innerText = "WRONG";
         }
+
+     // on the last question
+    if (quizNumber == quiz.length - 1) {
+        userScores += counter;
+        goNextBtn.innerText = "Show Result";
+        clearInterval(countDownInterval);
     }
+}
 
 function goNextQuestion() {
     if (counter <= 0) {
+        //when the time is up
         showResultScreen();
         return;
     }

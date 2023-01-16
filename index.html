@@ -11,7 +11,8 @@
         <!--Main Quiz Page-->
         <div class="outlineBox">
             <div class="hudPanel">
-                <div onclick="showHighScore()">View High Scores</div>
+                <!-- <div onclick="showHighScore()">View High Scores</div> -->
+                <button class="btnHighScore" id="showHighScore()">View High Scores</button>
                 <div id="timeLabel"> Time: 0</div>
             </div>
             <div id="startQuizPanel" class="wrapper">
@@ -50,7 +51,7 @@
             <!--Scoreboard-->
             <div class="answerResultLabel scoreLabel fadeIn hideItem" id="showScoreLabel">
                 <div id="scoreLabel"></div>
-                <input type="text" id="yourInitials" placeholder="name" class="initialsInput"/>
+                <input type="text" id="yourInitials" placeholder="nickName" class="initialsInput"/>
                 <br>
                 <button class="btn" id="resetBtn" onclick="submitScore()">Submit Score</button>
             </div>
