@@ -17,4 +17,4 @@ The html, css, js and readme files have been deployed to Github. The link to the
 
 [Link to Repository](https://elianelim.github.io/Challenge-4-Code-Quiz/)
 
-[Link to Horiseon Webpage](https://github.com/elianelim/Challenge-4-Code-Quiz.git)
+[Link to Code Quiz Webpage](https://github.com/elianelim/Challenge-4-Code-Quiz.git)

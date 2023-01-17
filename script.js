@@ -20,7 +20,7 @@ var quiz = [
 
     {
         question: "What can function take?",
-        choices: ["arguement", "variables", "parameters", "value"],
+        choices: ["repository", "variables", "parameters", "value"],
         answer: 2,
     },
 
