@@ -38,6 +38,16 @@ updateTime();
 var startQuizButton = document.getElementById("start_quiz");
 startQuizButton.addEventListener("click", startQuiz);
 
+window.onload = ()=>{
+    // loading data
+    var localHighScore = localStorage.getItem("highscores");
+    
+    if(localHighScore){
+        localHighScore = JSON.parse(localHighScore); // convert json string to javascript data
+        // make sure the data is correct and not corrupted by hackers
+        highScore = (localHighScore != undefined)?localHighScore:[];
+    }
+}
 
 //function to update timer
 function updateTime() {
@@ -76,6 +86,9 @@ function submitScore() {
     if (highScore.length > 3) {
         highScore = highScore.slice(0, 3);
     }
+
+    // Store into local storage
+    localStorage.setItem("highscores", JSON.stringify(highScore));
 
     //after slicing, score label will be displayed
     var showScoreLabel = document.getElementById("showScoreLabel");
@@ -212,7 +225,7 @@ function goNextQuestion() {
         clearInterval(countDownInterval);
     }
 }
-
+//after question is answered, prompt right or wrong label
 function showResultScreen() {
     var answerResultWrapper = document.getElementById("answerResultLabel");
     console.log("Show result screen");
@@ -222,13 +235,14 @@ function showResultScreen() {
     var questionPanel = document.getElementById("questionPanel");
     questionPanel.classList.add("hideItem");
 
+    //end of quiz, scoreboard will appear with user's score results
     var showScoreLabel = document.getElementById("showScoreLabel");
     showScoreLabel.classList.remove("hideItem");
 
-    var scoreLabel = document.getElementById("showScoreLabel");
+    var scoreLabel = document.getElementById("scoreLabel");
     scoreLabel.innerText = "Your Score: " + userScores;
 }
-
+//to view highscores board
 function showHighScore() {
     var highScorePanel = document.getElementById("highScoreLabel");
     highScorePanel.classList.remove("hideItem");
@@ -236,6 +250,7 @@ function showHighScore() {
     var scoreListLabel = document.getElementById("scoreListLabel");
     scoreListLabel.innerHTML = ""; 
 
+    //keeping only highscores
     if (highScore.length > 0) {
         var rank = 1;
         for (var scoreData of highScore) {
@@ -243,11 +258,12 @@ function showHighScore() {
             rank += 1;
         }
     }   else {
-        //If there is not high score, will display
+        //If there is no high score, it will display
         scoreListLabel.innerText = "No Score Yet";
     }
 } 
 
+//to close highscore board 
 function closeHighScore() {
     var highScorePanel = document.getElementById("highScoreLabel");
     highScorePanel.classList.add("hideItem");

@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Quiz</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        <!--Main Quiz Page-->
-        <div class="outlineBox">
-            <div class="hudPanel">
-                <!-- <div onclick="showHighScore()">View High Scores</div> -->
-                <button class="btnHighScore" id="showHighScore()">View High Scores</button>
-                <div id="timeLabel"> Time: 0</div>
-            </div>
-            <div id="startQuizPanel" class="wrapper">
-                <header>
-                    <h1>Coding Quiz Challenge</h1>
-                </header>
-                <div class="qnLabel">Try to answer the following code-related questions within the time limit.<br>Keep in mind that incorrect answers will penalize your score/time by ten seconds.</div>
-                <!--Start quiz button and to align the button to the center of the page-->
-                <div style="display: flex">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!--Main Quiz Page-->
+    <div class="outlineBox">
+        <div class="hudPanel">
+
+            <!--Highscore Button on main quiz page-->
+            <!-- <div onclick="showHighScore()">View High Scores</div> -->
+            <button class="btnHighScore" onclick="showHighScore()">View High Scores</button>
+            <!--Time Display on main quiz page-->
+            <div id="timeLabel"> Time: 0</div>
+        </div>
+        <div id="startQuizPanel" class="wrapper">
+            <header>
+                <h1>Coding Quiz Challenge</h1>
+            </header>
+            <div class="qnLabel">Try to answer the following code-related questions within the time limit.<br>Keep in
+                mind that incorrect answers will penalize your score/time by ten seconds.</div>
+            <!--Start quiz button and to align the button to the center of the page-->
+            <div style="display: flex">
                 <button class="btn alignMiddle" id="start_quiz">Start Quiz</button>
                 <!--<button onclick="startQuiz()">Start Quiz</button>-->
             </div>
@@ -48,22 +54,24 @@
                 <button class="btn" id="goNextBtn" onclick="goNextQuestion()"></button>
             </div>
         </div>
-            <!--Scoreboard-->
-            <div class="answerResultLabel scoreLabel fadeIn hideItem" id="showScoreLabel">
-                <div id="scoreLabel"></div>
-                <input type="text" id="yourInitials" placeholder="nickName" class="initialsInput"/>
-                <br>
-                <button class="btn" id="resetBtn" onclick="submitScore()">Submit Score</button>
-            </div>
+        <!--Scoreboard-->
+        <div class="answerResultLabel scoreLabel fadeIn hideItem" id="showScoreLabel">
+            <div id="scoreLabel"></div>
+            <br>
+            <input type="text" id="yourInitials" placeholder="nickName" class="initialsInput" />
+            <br>
+            <button class="btn" id="resetBtn" onclick="submitScore()">Submit Score</button>
+        </div>
 
-            <!--High Score Page-->
-            <div class="scoreResultLabel scoreLabel fadeIn hideItem" id="highScoreLabel">
-                <div id="scoreListLabel"></div>
-                <br>
-                <button class="btn" id="chooseHighScoreBtn" onclick="closeHighScore()">Close</button>
-            </div>
-        </div>    
-        <!--Insert JavaScript-->
-        <script src="script.js"></script>
-    </body>
+        <!--High Score Page-->
+        <div class="scoreResultLabel scoreLabel fadeIn hideItem" id="highScoreLabel">
+            <div id="scoreListLabel"></div>
+            <br>
+            <button class="btn" id="chooseHighScoreBtn" onclick="closeHighScore()">Close</button>
+        </div>
+    </div>
+    <!--Insert JavaScript-->
+    <script src="script.js"></script>
+</body>
+
 </html>
